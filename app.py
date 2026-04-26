@@ -79,11 +79,6 @@ def delete_task():
             print(f"Task {task_id} deleted succesfully")
 
 
-# Função para listar tarefas por status
-def list_tasks_by_status(status):
-    pass
-
-
 # Função para marcar tarefa como em progresso
 def mark_task_as_in_progress():
     task_id = int(sys.argv[2])
@@ -128,13 +123,35 @@ def mark_task_as_done():
         print(f"Task {task_id} not found.")
 
 
+# Função para listar tarefas por status
+def list_tasks():
+    # 1. Carrega o arquivo json com as tarefas
+    with open("tasks.json", "r") as file:
+        tasks = json.load(file)
+    
+    # Verifica se o usuário informou o status da tarefa
+    if len(sys.argv) > 2:
+        status = sys.argv[2]
+
+        # 2. Filtra as tarefas pelo status informado
+        filtered_tasks = [task for task in tasks if task["status"] == status]
+
+        # 3. Imprime a lista filtrada
+        for task in filtered_tasks:
+            print(task)
+
+    # Caso o usuário não informe o status, imprime todas as tarefas
+    else:
+        print(tasks)
+        
+
 # Estrutura do CLI
 command = sys.argv[1]
 commands = {
     "add": add_task,
     "update": update_task,
     "delete": delete_task,
-    "list": list_tasks_by_status,
+    "list": list_tasks,
     "mark-done": mark_task_as_done,
     "mark-in-progress": mark_task_as_in_progress,
 }
