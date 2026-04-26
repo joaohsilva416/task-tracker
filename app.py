@@ -55,8 +55,6 @@ def update_task():
             break
     else:
         print(f"Task {task_id} not found.")
-    
-    
 
 
 # Função para excluir tarefa
@@ -105,14 +103,29 @@ def mark_task_as_in_progress():
                 print(f"Task {task_id} marked as in-progress.")
             break
     else:
-        print(f"Task {task_id} not found.")
-
-    
+        print(f"Task {task_id} not found.")  
 
 
 # Função para marcar tarefa como concluida
 def mark_task_as_done():
-    pass
+    task_id = int(sys.argv[2])
+    done = "done"
+
+    # 1. Carrega o arquivo json com as tarefas
+    with open("tasks.json", "r") as file:
+        tasks = json.load(file)
+
+    # 2. Muda o status da tarefa para "done"
+    for task in tasks:
+        if task["id"] == task_id:
+            task["status"] = done
+            # Escreve as tarefas no arquivo json
+            with open("tasks.json", "w") as file:
+                json.dump(tasks, file, indent=4)
+                print(f"Task {task_id} marked as in-progress.")
+            break
+    else:
+        print(f"Task {task_id} not found.")
 
 
 # Estrutura do CLI
