@@ -59,7 +59,24 @@ def update_task():
 
 # Função para excluir tarefa
 def delete_task():
-    pass
+    task_id = int(sys.argv[2])
+
+    # 1. Carrega o arquivo json com as tarefas
+    with open("tasks.json", "r") as file:
+        tasks = json.load(file)
+    
+    # 2. Filtra as tarefas que não serão excluídas
+    filtered_tasks = [task for task in tasks if task["id"] != task_id]
+
+    # 3. Verifica se o ID existe ou não
+    if len(tasks) == len(filtered_tasks):
+        print(f"Task {task_id} not found.")
+    
+    else:
+        # 3. Escreve as tarefas filtradas no arquivo json
+        with open("tasks.json", "w") as file:
+            json.dump(filtered_tasks, file, indent=4)
+            print(f"Task {task_id} deleted succesfully")
 
 
 # Função para listar tarefas por status
