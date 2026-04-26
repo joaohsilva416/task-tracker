@@ -122,7 +122,7 @@ def mark_task_as_done():
             # Escreve as tarefas no arquivo json
             with open("tasks.json", "w") as file:
                 json.dump(tasks, file, indent=4)
-                print(f"Task {task_id} marked as in-progress.")
+                print(f"Task {task_id} marked as done.")
             break
     else:
         print(f"Task {task_id} not found.")
