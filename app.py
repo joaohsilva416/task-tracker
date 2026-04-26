@@ -35,7 +35,26 @@ def add_task():
 
 # Função para atualizar tarefa
 def update_task():
-    pass
+    task_id = int(sys.argv[2])
+    new_description = sys.argv[3]
+
+    # 1. Carrega o arquivo json com as tarefas
+    with open("tasks.json", "r") as file:
+        tasks = json.load(file)
+    
+    # 2. Modifica o dado (description) da tarefa com o id informado
+    for task in tasks:
+        if task["id"] == task_id:
+            task["description"] = new_description
+            task["updatedAt"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            break
+        else:
+            print(f"Task {task_id} not found.")
+    
+    # 3. Escreve as tarefas atualizadas no arquivo json
+    with open("tasks.json", "w") as file:
+        json.dump(tasks, file, indent=4)
+        print(f"Task {task_id} updated succesfully")
 
 
 # Função para excluir tarefa
