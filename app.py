@@ -47,14 +47,16 @@ def update_task():
         if task["id"] == task_id:
             task["description"] = new_description
             task["updatedAt"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+            # Escreve as tarefas atualizadas no arquivo json
+            with open("tasks.json", "w") as file:
+                json.dump(tasks, file, indent=4)
+                print(f"Task {task_id} updated succesfully")
             break
-        else:
-            print(f"Task {task_id} not found.")
+    else:
+        print(f"Task {task_id} not found.")
     
-    # 3. Escreve as tarefas atualizadas no arquivo json
-    with open("tasks.json", "w") as file:
-        json.dump(tasks, file, indent=4)
-        print(f"Task {task_id} updated succesfully")
+    
 
 
 # Função para excluir tarefa
@@ -84,13 +86,32 @@ def list_tasks_by_status(status):
     pass
 
 
-# Função para marcar tarefa como concluida
-def mark_task_as_done():
-    pass
-
-
 # Função para marcar tarefa como em progresso
 def mark_task_as_in_progress():
+    task_id = int(sys.argv[2])
+    in_progress = "in-progress"
+
+    # 1. Carrega o arquivo json com as tarefas
+    with open("tasks.json", "r") as file:
+        tasks = json.load(file)
+
+    # 2. Muda o status da tarefa para "in-progress"
+    for task in tasks:
+        if task["id"] == task_id:
+            task["status"] = in_progress
+            # Escreve as tarefas no arquivo json
+            with open("tasks.json", "w") as file:
+                json.dump(tasks, file, indent=4)
+                print(f"Task {task_id} marked as in-progress.")
+            break
+    else:
+        print(f"Task {task_id} not found.")
+
+    
+
+
+# Função para marcar tarefa como concluida
+def mark_task_as_done():
     pass
 
 
