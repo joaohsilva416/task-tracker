@@ -69,5 +69,6 @@ commands = {
     "mark-in-progress": mark_task_as_in_progress,
 }
 
+# Executa a função correspondente ao comando informado pelo usuário
 operation_function = commands[command]
 operation_function()
